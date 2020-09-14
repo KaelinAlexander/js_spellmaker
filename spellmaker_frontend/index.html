@@ -3,6 +3,9 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+<!-- Header Begins -->
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,11 +18,16 @@
       
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="models/blog.js"></script>
+        <script src="models/spell.js"></script>
         <script src="index.js"></script>
       
         <title>JS Spellmaker</title>
     </head>
+
+<!-- Header Ends -->
+
+<!-- Document Body Begins -->
+
     <body class="white">
         <div class="container" style="margin-bottom: 50px">
         <h4>Welcome to the Spellmaker!</h4>
@@ -60,8 +68,13 @@
                    
             <input type="submit" value="Make Spell" class="btn" id="submit-spell">
         </form>
+        <h4>Your Spells:</h4>
+        <div id="spell-list"></div>
         </div>
+
+
 <!-- Start Materialize Scripts -->
+
         <script src="index.js" async defer></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
         <!-- Compiled and minified JavaScript -->
@@ -75,5 +88,11 @@
           $('select').formSelect();
         });
         </script>
+
+<!-- End Materialize Scripts -->
+
     </body>
+
+<!-- Document Body Ends -->
+
 </html>
