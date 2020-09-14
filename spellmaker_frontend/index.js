@@ -1,0 +1,1 @@
+const spellName = () => document.getElementById("")
