@@ -12,3 +12,7 @@ end
 (1..10).to_a.each do |num|
     Component.create(name: "Component #{num}", latin: "Nomen Latine", planet: "Celestial Body", element: "Element", description: "Here's a description of the component, including assocciated lore.")
 end
+
+(1..10).to_a.each do |num|
+    SpellsComponent.create(spell_id: num, component_id: num)
+end

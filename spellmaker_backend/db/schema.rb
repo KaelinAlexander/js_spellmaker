@@ -18,8 +18,6 @@ ActiveRecord::Schema.define(version: 2020_09_14_195452) do
     t.string "planet"
     t.string "element"
     t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "spells", force: :cascade do |t|
@@ -27,8 +25,6 @@ ActiveRecord::Schema.define(version: 2020_09_14_195452) do
     t.string "process"
     t.string "intention"
     t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "spells_components", force: :cascade do |t|

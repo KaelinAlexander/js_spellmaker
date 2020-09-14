@@ -6,8 +6,6 @@ class CreateComponents < ActiveRecord::Migration[6.0]
       t.string :planet
       t.string :element
       t.text :description
-
-      t.timestamps
     end
   end
 end

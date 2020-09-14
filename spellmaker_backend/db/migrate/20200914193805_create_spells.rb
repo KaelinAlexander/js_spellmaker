@@ -5,8 +5,6 @@ class CreateSpells < ActiveRecord::Migration[6.0]
       t.string :process
       t.string :intention
       t.text :description
-
-      t.timestamps
     end
   end
 end
