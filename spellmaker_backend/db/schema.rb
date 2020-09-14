@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 2020_09_14_195452) do
   create_table "components", force: :cascade do |t|
     t.string "name"
     t.string "latin"
-    t.integer "parts"
     t.string "planet"
     t.string "element"
     t.text "description"
