@@ -1,7 +1,7 @@
 class SpellsController < ApplicationController
 
     def index
-        render json: Spell.all, include: { component: }
+        render json: Spell.all, include: {components: {only: [:id, :name]}}
     end
 
     private

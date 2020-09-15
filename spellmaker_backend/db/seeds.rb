@@ -14,7 +14,7 @@ end
 end
 
 (1..10).to_a.each do |num|
-    SpellsComponent.create(spell_id: num, component_id: num)
+    SpellsComponent.create(parts: num, spell_id: num, component_id: num)
 end
 
 (1..10).to_a.each do |num|

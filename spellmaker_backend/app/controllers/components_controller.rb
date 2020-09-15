@@ -1,7 +1,7 @@
 class ComponentsController < ApplicationController
 
     def index
-        render json: Component.all
+        render json: Component.all, include: { synonyms: {only: [:name] }, deities: {only: [:name] }, uses: {only: [:name]}}
     end
 
     private
