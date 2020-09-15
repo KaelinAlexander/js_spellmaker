@@ -1,18 +1,19 @@
 const spellList = () => document.getElementById("spell-list")
-const spellForm = () => document.getElementById("spell-form")
+const spellForm = () => document.querySelector("form#spell-form")
 const spellName = () => document.querySelector("input#spell-name")
-const spellProcess = () => document.querySelector("input#spell-process")
-const spellIntention = () => document.querySelector("input#spell-intention")
+const spellProcess = () => document.querySelector("select#spell-process")
+const spellIntention = () => document.querySelector("select#spell-intention")
 const spellDescription = () => document.querySelector("textarea#spell-description")
 const submitButton = () => document.getElementById("submit-spell")
 
 const baseUrl = 'http://localhost:3000'
+let editing = false
 
 document.addEventListener("DOMContentLoaded", callOnLoad)
 
 function callOnLoad() {
     loadSpells();
-    // spellForm().addEventListener('submit', createSpell)
+    spellForm().addEventListener('submit', Spell.createFromForm);
 }
 
 function loadSpells() {
@@ -28,4 +29,9 @@ function loadSpells() {
             Spell.displaySpells();
         })
         .catch(errors => console.log(errors))
+}
+
+function resetInputs() {
+    spellForm().reset();
+    
 }

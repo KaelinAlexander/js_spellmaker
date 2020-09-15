@@ -32,6 +32,8 @@ p.innerText = this.description
 editButton.innerText = "Edit"
 deleteButton.innerText = "Delete"
 
+debugger
+
 this.components.forEach(component => {
     const componentItem = document.createElement('li')
     componentItem.innerText = component.name
@@ -68,6 +70,38 @@ static displaySpells() {
     Spell.all.forEach(spell => {
         spell.display()
     })
+}
+
+static createFromForm(e) {
+    e.preventDefault();
+
+    if (editing) {
+
+    } else {
+        const strongParams = {
+            spell: {
+                name: spellName().value,
+                process: spellProcess().value,
+                intention: spellIntention().value,
+                description: spellDescription().value,
+            }
+        }
+        fetch(baseUrl + '/spells.json', {
+            method: "post",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(strongParams)
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            let spell = Spell.create(data.id, data.name, data.process, data.intention, data.description, data.components);
+            spell.display();
+        })
+
+        resetInputs();
+    }
 }
 
 }
