@@ -13,6 +13,12 @@ class SpellsController < ApplicationController
         end 
     end
 
+    def destroy
+        @spell = Spell.find(params[:id].to_i)
+        @spell.destroy
+        render json: @spell
+    end
+
     private
     def spell_params
         params.require(:spell).permit(:name, :process, :intention, :description)

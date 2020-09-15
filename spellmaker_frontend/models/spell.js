@@ -31,8 +31,9 @@ h5intention.innerText = this.intention
 p.innerText = this.description
 editButton.innerText = "Edit"
 deleteButton.innerText = "Delete"
+deleteButton.id = this.id
 
-debugger
+deleteButton.addEventListener('click', Spell.deleteSpell)
 
 this.components.forEach(component => {
     const componentItem = document.createElement('li')
@@ -102,6 +103,19 @@ static createFromForm(e) {
 
         resetInputs();
     }
+}
+
+static deleteSpell() {
+
+    fetch(baseUrl + '/spells/' + this.id, {
+        method: "DELETE"
+    })
+    .then(resp => {
+        return resp.json();
+    })
+    .then(data => {
+        this.parentNode.remove();
+    })
 }
 
 }
