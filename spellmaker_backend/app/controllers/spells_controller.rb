@@ -13,6 +13,15 @@ class SpellsController < ApplicationController
         end 
     end
 
+    def update
+        @spell = Spell.find(params[:id].to_i)
+        if @spell.update(spell_params)
+            render json: @spell
+        else
+            render json: @spell.errors, status: :unprocessable_entity
+        end
+    end
+
     def destroy
         @spell = Spell.find(params[:id].to_i)
         @spell.destroy

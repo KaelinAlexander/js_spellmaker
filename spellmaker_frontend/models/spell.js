@@ -29,10 +29,13 @@ h4.innerText = this.name
 h5process.innerText = this.process
 h5intention.innerText = this.intention
 p.innerText = this.description
+
 editButton.innerText = "Edit"
+editButton.id = this.id
+editButton.addEventListener('click', Spell.editSpell)
+
 deleteButton.innerText = "Delete"
 deleteButton.id = this.id
-
 deleteButton.addEventListener('click', Spell.deleteSpell)
 
 this.components.forEach(component => {
@@ -76,8 +79,8 @@ static displaySpells() {
 static createFromForm(e) {
     e.preventDefault();
 
-    if (editing) {
-
+    if (editingSpell) {
+        Spell.updateSpell()
     } else {
         const strongParams = {
             spell: {
@@ -103,6 +106,64 @@ static createFromForm(e) {
 
         resetInputs();
     }
+}
+
+static editSpell() {
+    editingSpell = true;
+    spellName().value = this.parentNode.querySelector('h4').innerText;
+    const options = spellProcess().options
+    
+    for (const option in options) {
+        if (options[option].value == this.parentNode.querySelectorAll('h5')[0].innerText ) {
+            options.selectedIndex = options[option].index
+        }
+    }
+    // spellIntention().options.forEach(option => {
+    //     if (option.value == this.parentNode.querySelectorAll('h5')[1].innerText ) {
+    //         option.selected = true
+    //     }
+    // })
+    spellDescription().value = this.parentNode.querySelector('p').innerText;
+    submitButton().value = "Update Spell"
+
+    Spell.editedSpellId = this.id
+}
+
+static updateSpell() {
+
+    const strongParams = {
+        spell: {
+            name: spellName().value,
+            process: spellProcess().value,
+            intention: spellIntention().value,
+            description: spellDescription().value,
+        }
+    }
+
+    fetch(baseUrl + '/spells/' + Spell.editedSpellId, {
+        method: "PATCH",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(strongParams)
+    })
+    .then(resp => resp.json())
+    .then(data => {
+
+        let editedSpell = Spell.all.find(spell => spell.id == data.id)
+        editedSpell.name = data.name
+        editedSpell.process = data.process
+        editedSpell.intention = data.intention
+        editedSpell.description = data.description
+
+        Spell.displaySpells()
+
+        resetInputs()
+        editingSpell = false
+        Spell.editedSpellId = null
+        submitButton().value = "Create Spell"
+    })
 }
 
 static deleteSpell() {

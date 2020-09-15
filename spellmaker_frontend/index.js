@@ -7,7 +7,7 @@ const spellDescription = () => document.querySelector("textarea#spell-descriptio
 const submitButton = () => document.getElementById("submit-spell")
 
 const baseUrl = 'http://localhost:3000'
-let editing = false
+let editingSpell = false
 
 document.addEventListener("DOMContentLoaded", callOnLoad)
 
