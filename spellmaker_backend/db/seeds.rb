@@ -6,11 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 (1..10).to_a.each do |num|
-    Spell.create(name: "Spell #{num}", process: "Charm", intention: "Intention #{num}", description: "Here's a description of the spell.", toxic: false)
+    Spell.create(name: "Spell #{num}", process: "Charm", intention: "Intention #{num}", description: "Here's a description of the spell.")
 end
 
 (1..10).to_a.each do |num|
-    Component.create(name: "Component #{num}", latin: "Nomen Latine", planet: "Celestial Body", element: "Element", description: "Here's a description of the component, including assocciated lore.")
+    Component.create(name: "Component #{num}", latin: "Nomen Latine", planet: "Celestial Body", element: "Element", description: "Here's a description of the component, including assocciated lore.", toxic: false)
 end
 
 (1..10).to_a.each do |num|
@@ -30,7 +30,7 @@ end
 end
 
 (1..10).to_a.each do |num|
-    CompomentsDeity.create(component_id: num, deity_id: num)
+    ComponentsDeity.create(component_id: num, deity_id: num)
 end
 
 Use.create(name: "Protection")
@@ -51,5 +51,5 @@ Use.create(name: "Spirituality" )
 Use.create(name: "Mood" )
 
 (1..10).to_a.each do |num|
-    CompomentsUse.create(component_id: num, use_id: num)
+    ComponentsUse.create(component_id: num, use_id: num)
 end
