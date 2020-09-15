@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 (1..10).to_a.each do |num|
-    Spell.create(name: "Spell #{num}", process: "Charm", intention: "Intention #{num}", description: "Here's a description of the spell.")
+    Spell.create(name: "Spell #{num}", process: "Charm", intention: "Intention #{num}", description: "Here's a description of the spell.", toxic: false)
 end
 
 (1..10).to_a.each do |num|
@@ -15,4 +15,41 @@ end
 
 (1..10).to_a.each do |num|
     SpellsComponent.create(spell_id: num, component_id: num)
+end
+
+(1..10).to_a.each do |num|
+    Synonym.create(name: "Synonym #{num}A", component_id: num)
+end
+
+(1..10).to_a.each do |num|
+    Synonym.create(name: "Synonym #{num}B", component_id: num)
+end
+
+(1..10).to_a.each do |num|
+    Deity.create(name: "Deity #{num}")
+end
+
+(1..10).to_a.each do |num|
+    CompomentsDeity.create(component_id: num, deity_id: num)
+end
+
+Use.create(name: "Protection")
+Use.create(name: "Love" )
+Use.create(name: "Exorcism" )
+Use.create(name: "Healing" )
+Use.create(name: "Hex Breaking" )
+Use.create(name: "Fidelity" )
+Use.create(name: "Luck" )
+Use.create(name: "Lust" )
+Use.create(name: "Money" )
+Use.create(name: "Clairvoyance" )
+Use.create(name: "Sleep" )
+Use.create(name: "Fertility" )
+Use.create(name: "Purification" )
+Use.create(name: "Wisdom" )
+Use.create(name: "Spirituality" )
+Use.create(name: "Mood" )
+
+(1..10).to_a.each do |num|
+    CompomentsUse.create(component_id: num, use_id: num)
 end

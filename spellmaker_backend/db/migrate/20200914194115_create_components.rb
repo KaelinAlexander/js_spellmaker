@@ -6,6 +6,7 @@ class CreateComponents < ActiveRecord::Migration[6.0]
       t.string :planet
       t.string :element
       t.text :description
+      t.boolean :toxic
     end
   end
 end
