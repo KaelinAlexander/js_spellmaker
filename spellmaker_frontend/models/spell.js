@@ -124,7 +124,7 @@ static editSpell() {
     //     }
     // })
     spellDescription().value = this.parentNode.querySelector('p').innerText;
-    submitButton().value = "Update Spell"
+    submitSpell().value = "Update Spell"
 
     Spell.editedSpellId = this.id
 }
@@ -162,7 +162,7 @@ static updateSpell() {
         resetInputs()
         editingSpell = false
         Spell.editedSpellId = null
-        submitButton().value = "Create Spell"
+        submitSpell().value = "Create Spell"
     })
 }
 
