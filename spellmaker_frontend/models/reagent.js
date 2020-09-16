@@ -17,12 +17,13 @@ class Reagent {
     }
 
     display() {
+        
         const div = document.createElement('div');
         const h4 = document.createElement('h4');
         const h5latin = document.createElement('h5');
-        const h5synonyms = document.createElement('h5');
         const h5planet = document.createElement('h5');
         const h5element = document.createElement('h5');
+        const h5synonyms = document.createElement('h5');
         const p = document.createElement('p');
         const usesList = document.createElement('ul')
         const deitiesList = document.createElement('ul')
@@ -33,6 +34,7 @@ class Reagent {
         h5latin.innerText = this.latin
         h5planet.innerText = this.planet
         h5element.innerText = this.element
+        h5synonyms.innerText = "Synonym Placeholder"
         p.innerText = this.description
 
         // Add synonym logic here when it's clear what comes back from fetch.
@@ -51,6 +53,14 @@ class Reagent {
             usesList.appendChild(useItem)
         })
 
+        editButton.innerText = "Edit"
+        editButton.id = this.id
+        editButton.addEventListener('click', Reagent.editComponent)
+
+        deleteButton.innerText = "Delete"
+        deleteButton.id = this.id
+        deleteButton.addEventListener('click', Reagent.deleteComponent)
+
         div.appendChild(h4)
         div.appendChild(h5latin)
         if (this.toxic == true) {
@@ -60,8 +70,12 @@ class Reagent {
         }
         div.appendChild(h5planet)
         div.appendChild(h5element)
+        div.appendChild(h5synonyms)
+        div.appendChild(p)
         div.appendChild(deitiesList)
         div.appendChild(usesList)
+        div.appendChild(editButton)
+        div.appendChild(deleteButton)
 
         componentList().appendChild(div)
 
@@ -90,7 +104,7 @@ class Reagent {
         e.preventDefault();
 
         if (editingComponent) {
-
+            Reagent.updateComponent()
         } else {
 
             const deitiesAttributes = []
@@ -147,5 +161,90 @@ class Reagent {
         resetInputs();
         }
     }
+
+static editComponent() {
+    
+    editingComponent = true
+    componentName().value = this.parentNode.querySelector('h4').innerText;
+    componentLatin().value = this.parentNode.querySelectorAll('h5')[0].innerText;
+    componentPlanet().value = this.parentNode.querySelectorAll('h5')[1].innerText;
+    componentElement().value = this.parentNode.querySelectorAll('h5')[2].innerText;
+    componentSynonyms().value = this.parentNode.querySelectorAll('h5')[3].innerText;
+    componentDescription().value = this.parentNode.querySelector('p').innerText;
+    // Add logic for check boxes and select boxes here.
+    submitComponent().value = "Update Component";
+
+    Reagent.editedComponentId = this.id
+}
+
+static updateComponent() {
+
+    const deitiesAttributes = []
+    const rawDeities = getSelectValues(componentDeities())
+    rawDeities.forEach(deity => {
+        let newDeity = {}
+        newDeity["name"] = deity
+        deitiesAttributes.push(newDeity)
+    })
+
+    const usesAttributes = []
+    const rawUses = getSelectValues(componentUses())
+    rawUses.forEach(use => {
+        let newUse = {}
+        newUse["name"] = use
+        usesAttributes.push(newUse)
+    })
+
+    const synonymsAttributes = []
+    const rawSynonyms = componentSynonyms().value.split(', ')
+    rawSynonyms.forEach(synonym => {
+        let newSynonym = {}
+        newSynonym["name"] = synonym
+        synonymsAttributes.push(newSynonym)
+    })
+
+    const strongParams = {
+        component: {
+            name: componentName().value,
+            latin: componentLatin().value,
+            planet: componentPlanet().value,
+            element: componentElement().value,
+            description: componentDescription().value,
+            toxic: componentToxic().value,
+            synonyms_attributes: synonymsAttributes,
+            deities_attributes: deitiesAttributes,
+            uses_attributes: usesAttributes
+        }
+    }
+
+    fetch(baseUrl + '/components/' + Reagent.editedComponentId, {
+        method: "PATCH",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(strongParams)
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        debugger
+        let editedComponent = Reagent.all.find(component => component.id == data.id)
+        editedComponent.name = data.name
+        editedComponent.latin = data.latin
+        editedComponent.planet = data.planet
+        editedComponent.element = data.element
+        editedComponent.toxic = data.toxic
+        editedComponent.synonyms = data.synonyms
+        editedComponent.deities = data.deities
+        editedComponent.uses = data.uses
+
+        Reagent.displayComponents()
+
+        resetInputs();
+        editingComponent = false
+        Reagent.editedComponentId = null
+        submitComponent().value = "Create Component"
+    })
+}
 
 }

@@ -5,13 +5,21 @@ class ComponentsController < ApplicationController
     end
 
     def create
-        byebug
         @component = Component.new(component_params)
         if @component.save
             render json: @component, include: {synonyms: {only: [:id, :name]}, deities: {only: [:id, :name]}, uses: {only: [:id, :name]}}, status: :created
         else
             render json: @component.errors.full_messages, status: :unprocessable_entity
         end 
+    end
+
+    def update
+        @component = Component.find(params[:id].to_i)
+        if @component.update(component_params)
+            render json: @component, include: {synonyms: {only: [:id, :name]}, deities: {only: [:id, :name]}, uses: {only: [:id, :name]}}, status: :created
+        else
+            render json: @component.errors, status: :unprocessable_entity
+        end
     end
 
     private
