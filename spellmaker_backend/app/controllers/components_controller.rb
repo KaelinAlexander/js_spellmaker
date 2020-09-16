@@ -22,6 +22,12 @@ class ComponentsController < ApplicationController
         end
     end
 
+    def destroy
+        @component = Component.find(params[:id].to_i)
+        @component.destroy
+        render json: @component
+    end
+
     private
     def component_params
         params.require(:component).permit(:name, :latin, :planet, :element, :description, :toxic, :deities_attributes => [:name], :uses_attributes => [:name], :synonyms_attributes => [:name] )

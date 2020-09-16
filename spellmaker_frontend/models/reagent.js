@@ -247,4 +247,17 @@ static updateComponent() {
     })
 }
 
+static deleteComponent() {
+    fetch(baseUrl + '/components/' + this.id, {
+        method: "DELETE"
+    })
+    .then(resp => {
+        return resp.json();
+    })
+    .then(data => {
+        this.parentNode.remove();
+    })
+    
+}
+
 }
