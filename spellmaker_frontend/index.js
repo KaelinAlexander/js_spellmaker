@@ -12,9 +12,9 @@ const componentForm = () => document.querySelector("form#component-form")
 const componentName = () => document.querySelector("input#component-name")
 const componentLatin = () => document.querySelector("input#component-latin")
 const componentSynonyms = () => document.querySelector("input#component-synonyms")
-const componentPlanet = () => document.querySelector("input#component-planet")
-const componentElement = () => document.querySelector("input#component-element")
-const componentDescription = () => document.querySelector("input#component-description")
+const componentPlanet = () => document.querySelector("select#component-planet")
+const componentElement = () => document.querySelector("select#component-element")
+const componentDescription = () => document.querySelector("textarea#component-description")
 const componentToxic = () => document.querySelector("select#component-toxic")
 const componentDeities = () => document.querySelector("select#component-deities")
 const componentUses = () => document.querySelector("select#component-uses")
@@ -28,9 +28,9 @@ document.addEventListener("DOMContentLoaded", callOnLoad)
 
 function callOnLoad() {
     loadSpells();
-    // loadSelectors();
-    spellForm().addEventListener('submit', Spell.createFromForm);
-    componentForm().addEventListener('submit', Component.createFromForm);
+    loadComponents();
+    submitSpell().addEventListener('click', Spell.createFromForm);
+    submitComponent().addEventListener('click', Reagent.createFromForm);
 }
 
 function loadSpells() {
@@ -48,9 +48,39 @@ function loadSpells() {
         .catch(errors => console.log(errors))
 }
 
+function loadComponents() {
+    fetch(baseUrl + '/components.json')
+        .then(resp => {
+            if (resp.status !== 200) {
+                throw new Error(resp.statusText);
+            }
+            return resp.json();
+        })
+        .then(data => {
+            Reagent.createComponents(data);
+            Reagent.displayComponents();
+        })
+        .catch(errors => console.log(errors))
+}
+
 // function loadSelectors() {
 
 // }
+
+function getSelectValues(select) {
+    var result = [];
+    var options = select && select.options;
+    var opt;
+  
+    for (var i=0, iLen=options.length; i<iLen; i++) {
+      opt = options[i];
+  
+      if (opt.selected) {
+        result.push(opt.value || opt.text);
+      }
+    }
+    return result;
+  }
 
 function resetInputs() {
     spellForm().reset();

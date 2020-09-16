@@ -18,8 +18,10 @@
       
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="models/spell.js"></script>
         <script src="index.js"></script>
+        <script src="models/reagent.js"></script>
+        <script src="models/spell.js"></script>
+
       
         <title>JS Spellmaker</title>
     </head>
@@ -47,7 +49,7 @@
             
             <div class="input-field col s12">
                 <select name="spell-process" id="spell-process">
-                    <option value="" disabled selected>--Choose a Process--</option>
+                    <option value="" disabled>--Choose a Process--</option>
                     <option value="Charm">Charm</option>
                     <option value="Infusion">Infusion</option>
                     <option value="Bath">Bath</option>
@@ -59,7 +61,7 @@
             
             <div class="input-field col s12">
                 <select name="spell-intention" id="spell-intention">
-                    <option value="" disabled selected>--Choose an Intention--</option>
+                    <option value="" disabled>--Choose an Intention--</option>
                     <option value="Protection">Protection</option>
                     <option value="Love">Love</option>
                     <option value="Exorcism">Exorcism</option>
@@ -102,30 +104,30 @@
 
 
             <div class="input-field col s12">
-                <select name="component-deities" id="component-deities" multiple>
-                  <option value="" disabled selected>Associated Deitites</option>
+                <select name="component-deities" id="component-deities" multiple="multiple">
+                  <option value="" disabled>Associated Deitites</option>
                   <!-- Generate these dynamically. -->
-                  <option value="1">Option 1</option>
-                  <option value="2">Option 2</option>
-                  <option value="3">Option 3</option>
+                  <option value="Diana">Diana</option>
+                  <option value="Zeus">Zeus</option>
+                  <option value="Gaia">Gaia</option>
                 </select>
                 <label>Deities</label>
             </div>
 
             <div class="input-field col s12">
                 <select name="component-uses" id="component-uses" multiple>
-                  <option value="" disabled selected>Uses</option>
+                  <option value="" disabled>Uses</option>
                   <!-- Generate these dynamically. -->
-                  <option value="1">Option 1</option>
-                  <option value="2">Option 2</option>
-                  <option value="3">Option 3</option>
+                  <option value="1">Protection</option>
+                  <option value="2">Love</option>
+                  <option value="3">Exorcism</option>
                 </select>
                 <label>Uses</label>
             </div>
 
             <div class="input-field col s12">
                 <select name="component-planet" id="component-planet">
-                  <option value="" disabled selected>Planet</option>
+                  <option value="" disabled>Planet</option>
                   <option value="Mercury">Mercury</option>
                   <option value="Venus">Venus</option>
                   <option value="Moon">Moon</option>
@@ -141,7 +143,7 @@
 
             <div class="input-field col s12">
                 <select name="component-element" id="component-element">
-                  <option value="" disabled selected>Element</option>
+                  <option value="" disabled>Element</option>
                   <option value="Earth">Earth</option>
                   <option value="Fire">Fire</option>
                   <option value="Air">Air</option>
@@ -152,7 +154,7 @@
 
             <div class="input-field col s12">
                 <select name="component-toxic" id="component-toxic">
-                  <option value="" disabled selected>Is it toxic?</option>
+                  <option value="" disabled>Is it toxic?</option>
                   <option value=true>Yes</option>
                   <option value=false>No</option>
                 </select>
@@ -164,6 +166,8 @@
                 <textarea type="text" name="component-description" id="component-description" class="materialize-textarea"></textarea>     
                 <label class="active" for="component-description">Component Description</label>
             </div>
+
+            <input type="submit" value="Make Component" class="btn" id="submit-component">
 
         </form>
 
@@ -180,7 +184,6 @@
 
 <!-- Start Materialize Scripts -->
 
-        <script src="index.js" async defer></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
         <!-- Compiled and minified JavaScript -->
           <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -188,6 +191,7 @@
           <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
           <script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
         <![endif]-->
+        
         <script>
         $(document).ready(function(){
           $('select').formSelect();

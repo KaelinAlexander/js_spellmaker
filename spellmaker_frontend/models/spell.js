@@ -38,10 +38,10 @@ deleteButton.innerText = "Delete"
 deleteButton.id = this.id
 deleteButton.addEventListener('click', Spell.deleteSpell)
 
-this.components.forEach(component => {
+this.components.forEach(spellcomponent => {
     const componentItem = document.createElement('li')
-    componentItem.innerText = component.name
-    componentItem.id = component.id
+    componentItem.innerText = spellcomponent.name
+    componentItem.id = spellcomponent.id
     componentList.appendChild(componentItem)
 })
 
@@ -180,3 +180,4 @@ static deleteSpell() {
 }
 
 }
+

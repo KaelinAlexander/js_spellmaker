@@ -1,4 +1,4 @@
-class Component {
+class Reagent {
 
     static all = [];
     static editedComponentId = null;
@@ -67,31 +67,56 @@ class Component {
 
     }
 
-    static createComponenets(componentsData) {
-        componentsData.forEach(component => Component.create(component.id, component.name, component.latin, component.planet, component.element, component.description, component.toxic, component.synonyms, component.deities, component.uses))
+    static createComponents(componentsData) {
+        componentsData.forEach(com => Reagent.create(com.id, com.name, com.latin, com.planet, com.element, com.description, com.toxic, com.synonyms, com.deities, com.uses))
     }
-
     static create(id, name, latin, planet, element, description, toxic, synonyms, deities, uses) {
-        let component = new Component(id, name, latin, planet, element, description, toxic, synonyms, deities, uses);
+        let newComponent = new Reagent(id, name, latin, planet, element, description, toxic, synonyms, deities, uses);
 
-        Component.all.push(component);
+        Reagent.all.push(newComponent);
 
-        return component;
+        return newComponent;
     }
 
     static displayComponents() {
         componentList().innerHTML = '';
-        Component.all.forEach(component => {
-            component.display()
+        Reagent.all.forEach(com => {
+            com.display()
         })
     }
 
     static createFromForm(e) {
+        
         e.preventDefault();
 
         if (editingComponent) {
 
         } else {
+
+            const deitiesAttributes = []
+            const rawDeities = getSelectValues(componentDeities())
+            rawDeities.forEach(deity => {
+                let newDeity = {}
+                newDeity["name"] = deity
+                deitiesAttributes.push(newDeity)
+            })
+
+            const usesAttributes = []
+            const rawUses = getSelectValues(componentUses())
+            rawUses.forEach(use => {
+                let newUse = {}
+                newUse["name"] = use
+                usesAttributes.push(newUse)
+            })
+
+            const synonymsAttributes = []
+            const rawSynonyms = componentSynonyms().value.split(', ')
+            rawSynonyms.forEach(synonym => {
+                let newSynonym = {}
+                newSynonym["name"] = synonym
+                synonymsAttributes.push(newSynonym)
+            })
+
             const strongParams = {
                 component: {
                     name: componentName().value,
@@ -99,10 +124,10 @@ class Component {
                     planet: componentPlanet().value,
                     element: componentElement().value,
                     description: componentDescription().value,
-                    toxic: componentToxic().value
-                    synonyms: componentSynonyms().value
-                    deities: componentDeities().value
-                    uses: componentUses().value
+                    toxic: componentToxic().value,
+                    synonyms_attributes: synonymsAttributes,
+                    deities_attributes: deitiesAttributes,
+                    uses_attributes: usesAttributes
                 }
             }
         fetch(baseUrl + '/components.json', {
@@ -115,8 +140,8 @@ class Component {
         })
         .then(resp => resp.json())
         .then(data => {
-            let component = Component.create(data.id, data.name, data.latin, data.planet, data.element, data.description, data.toxic, data.synonyms, data.deities, data.uses);
-            component.display();
+            let createComponent = Reagent.create(data.id, data.name, data.latin, data.planet, data.element, data.description, data.toxic, data.synonyms, data.deities, data.uses);
+            createComponent.display();
         })
 
         resetInputs();
