@@ -54,5 +54,5 @@ function loadSpells() {
 
 function resetInputs() {
     spellForm().reset();
-    
+    componentForm().reset();    
 }

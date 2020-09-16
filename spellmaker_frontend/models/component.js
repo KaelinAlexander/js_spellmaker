@@ -94,9 +94,32 @@ class Component {
         } else {
             const strongParams = {
                 component: {
-                    name:
+                    name: componentName().value,
+                    latin: componentLatin().value,
+                    planet: componentPlanet().value,
+                    element: componentElement().value,
+                    description: componentDescription().value,
+                    toxic: componentToxic().value
+                    synonyms: componentSynonyms().value
+                    deities: componentDeities().value
+                    uses: componentUses().value
                 }
             }
+        fetch(baseUrl + '/components.json', {
+            method: "post",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(strongParams)
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            let component = Component.create(data.id, data.name, data.latin, data.planet, data.element, data.description, data.toxic, data.synonyms, data.deities, data.uses);
+            component.display();
+        })
+
+        resetInputs();
         }
     }
 
