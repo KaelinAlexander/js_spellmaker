@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", callOnLoad)
 
 function callOnLoad() {
     loadSpells();
+    loadSelectors();
     spellForm().addEventListener('submit', Spell.createFromForm);
 }
 
@@ -29,6 +30,10 @@ function loadSpells() {
             Spell.displaySpells();
         })
         .catch(errors => console.log(errors))
+}
+
+function loadSelectors() {
+    
 }
 
 function resetInputs() {

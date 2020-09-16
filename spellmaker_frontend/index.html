@@ -31,17 +31,23 @@
     <body class="white">
         <div class="container" style="margin-bottom: 50px">
         <h4>Welcome to the Spellmaker!</h4>
+
+        
+        <!-- Spell Creation Form Begin -->
         <br>
+        <hr>
+        <br>
+        <h5>Make a Spell</h5>
         <form id="spell-form">
 
             <div class="input-field">
                 <input type="text" name="spell-name" id="spell-name">
-                <label for="spell-name">Spell Name</label>
+                <label class="active" for="spell-name">Spell Name</label>
             </div>
             
             <div class="input-field col s12">
-                <select name="spell-process" id="spell-process" class="materialize-select">
-                    <option value="">--Please choose a Process--</option>
+                <select name="spell-process" id="spell-process">
+                    <option value="" disabled selected>--Choose a Process--</option>
                     <option value="Charm">Charm</option>
                     <option value="Infusion">Infusion</option>
                     <option value="Bath">Bath</option>
@@ -53,21 +59,116 @@
             
             <div class="input-field col s12">
                 <select name="spell-intention" id="spell-intention">
-                    <option value="">--Please choose an Intention--</option>
-                    <option value="protection">Protection</option>
-                    <option value="love">Love</option>
-                    <option value="exorcism">Exorcism</option>
+                    <option value="" disabled selected>--Choose an Intention--</option>
+                    <option value="Protection">Protection</option>
+                    <option value="Love">Love</option>
+                    <option value="Exorcism">Exorcism</option>
                 </select>
                 <label for="spell-intention">Spell Intention</label>              
             </div>
             
             <div class="input-field col s12">
                 <textarea type="text" name="spell-description" id="spell-description" class="materialize-textarea"></textarea>     
-                <label for="spell-description">Spell Description</label>
+                <label class="active" for="spell-description">Spell Description</label>
               </div>
                    
             <input type="submit" value="Make Spell" class="btn" id="submit-spell">
         </form>
+
+        <!-- Spell Creation Form End -->
+
+        <!-- Component Creation Form Begin -->
+        <br>
+        <hr>
+        <br>
+        <h5>Make a Component</h5>
+
+        <form id="component-form">
+
+            <div class="input-field">
+                <input type="text" name="component-name" id="component-name">
+                <label class="active" for="component-name">Component Name</label>
+            </div>
+
+            <div class="input-field">
+                <input type="text" name="component-latin" id="component-latin">
+                <label class="active" for="component-latin">Latin Name</label>
+            </div>
+
+            <div class="input-field">
+                <input type="text" name="component-synonyms" id="component-synonyms">
+                <label class="active" for="component-synonyms">Synonyms (Separate w/ Commas)</label>
+            </div>
+
+
+            <div class="input-field col s12">
+                <select name="component-deities" id="component-deities" multiple>
+                  <option value="" disabled selected>Associated Deitites</option>
+                  <!-- Generate these dynamically. -->
+                  <option value="1">Option 1</option>
+                  <option value="2">Option 2</option>
+                  <option value="3">Option 3</option>
+                </select>
+                <label>Deities</label>
+            </div>
+
+            <div class="input-field col s12">
+                <select name="component-uses" id="component-uses" multiple>
+                  <option value="" disabled selected>Uses</option>
+                  <!-- Generate these dynamically. -->
+                  <option value="1">Option 1</option>
+                  <option value="2">Option 2</option>
+                  <option value="3">Option 3</option>
+                </select>
+                <label>Uses</label>
+            </div>
+
+            <div class="input-field col s12">
+                <select name="component-planet" id="component-planet">
+                  <option value="" disabled selected>Planet</option>
+                  <option value="Mercury">Mercury</option>
+                  <option value="Venus">Venus</option>
+                  <option value="Moon">Moon</option>
+                  <option value="Mars">Mars</option>
+                  <option value="Jupiter">Jupiter</option>
+                  <option value="Saturn">Saturn</option>
+                  <option value="Uranus">Uranus</option>
+                  <option value="Neptune">Neptune</option>
+                  <option value="Pluto">Pluto</option>                    
+                </select>
+                <label>Planet</label>
+            </div>
+
+            <div class="input-field col s12">
+                <select name="component-element" id="component-element">
+                  <option value="" disabled selected>Element</option>
+                  <option value="Earth">Earth</option>
+                  <option value="Fire">Fire</option>
+                  <option value="Air">Air</option>
+                  <option value="Water">Water</option>
+                </select>
+                <label>Element</label>
+            </div>
+
+            <div class="input-field col s12">
+                <select name="component-toxic" id="component-toxic">
+                  <option value="" disabled selected>Is it toxic?</option>
+                  <option value=true>Yes</option>
+                  <option value=false>No</option>
+                </select>
+                <label>Toxic?</label>
+            </div>
+
+
+            <div class="input-field col s12">
+                <textarea type="text" name="component-description" id="component-description" class="materialize-textarea"></textarea>     
+                <label class="active" for="component-description">Component Description</label>
+            </div>
+
+        </form>
+
+        <!-- Component Creation Form End -->
+
         <h4>Your Spells:</h4>
         <div id="spell-list"></div>
         </div>
