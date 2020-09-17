@@ -30,7 +30,7 @@ class SpellsController < ApplicationController
 
     private
     def spell_params
-        params.require(:spell).permit(:name, :process, :intention, :description)
+        params.require(:spell).permit(:name, :process, :intention, :description, :spells_components_attributes => [:spell_id, :component_id])
     end
 
 end

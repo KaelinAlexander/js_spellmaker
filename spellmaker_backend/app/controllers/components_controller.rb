@@ -34,7 +34,7 @@ class ComponentsController < ApplicationController
 
     private
     def component_params
-        params.require(:component).permit(:name, :latin, :planet, :element, :description, :toxic, :components_deities_attributes => [:component_id, :deity_id], :components_uses_attributes => [:component_id, :use_id], :deities_attributes => [:name], :uses_attributes => [:name], :synonyms_attributes => [:name] )
+        params.require(:component).permit(:name, :latin, :planet, :element, :description, :toxic, :components_deities_attributes => [:component_id, :deity_id], :components_uses_attributes => [:component_id, :use_id], :spells_components_attributes => [:spell_id, :component_id], :deities_attributes => [:name], :uses_attributes => [:name], :synonyms_attributes => [:name] )
     end
 
 end

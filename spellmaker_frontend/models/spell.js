@@ -22,6 +22,9 @@ display () {
     const editButton = document.createElement('button');
     const deleteButton = document.createElement('button');
     const componentList = document.createElement('ul')
+    const componentSelectorForm = document.createElement('form')
+    const componentSelectorDropDown = loadComponentSelectors();
+    const componentAddSubmit = document.createElement('button')
 
 // Build out delete and edit functions here.
 
@@ -38,6 +41,10 @@ deleteButton.innerText = "Delete"
 deleteButton.id = this.id
 deleteButton.addEventListener('click', Spell.deleteSpell)
 
+componentAddSubmit.innerText = "Add Component"
+componentAddSubmit.id = this.id
+componentAddSubmit.addEventListener('click', Spell.addComponent)
+
 this.components.forEach(spellcomponent => {
     const componentItem = document.createElement('li')
     componentItem.innerText = spellcomponent.name
@@ -52,6 +59,12 @@ div.appendChild(p)
 div.appendChild(componentList)
 div.appendChild(editButton)
 div.appendChild(deleteButton)
+div.appendChild(componentSelectorForm)
+
+componentSelectorForm.appendChild(componentSelectorDropDown)
+componentSelectorForm.appendChild(componentAddSubmit)
+
+// loadComponentSelectors(componentSelectorDropDown)
 
 spellList().appendChild(div)
 
@@ -104,7 +117,6 @@ static createFromForm(e) {
             spell.display();
         })
         .catch(function(error) {
-            debugger
             alert("Sometimes things go bad just because.");
             alert(error);
         })
@@ -232,6 +244,57 @@ static validateForm() {
 
     return validationValue
 
+}
+
+static addComponent(e) {
+    e.preventDefault()
+
+    const componentId = this.parentNode.querySelector('select').value
+
+    if ( Spell.validateAdd(this.id, componentId) == true ) {
+
+        const strongParams = {
+            spells_component: {
+                spell_id: this.id,
+                component_id: componentId
+            }
+        }
+
+        fetch(baseUrl + '/spells_components.json', {
+            method: "post",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(strongParams)
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            const existingUl = this.parentNode.parentNode.querySelector('ul')
+            const newLi = document.createElement('li')
+            newLi.innerText = data.component.name
+            newLi.id = data.component.id
+            existingUl.appendChild(newLi)
+        })
+        .catch(function(error) {
+            alert("Sometimes things go bad just because.");
+            alert(error);
+        })
+    }
+}
+
+static validateAdd (spell_id, component_id) {
+    let validationValue = true
+    const spellToCheck = Spell.all.find(spell => spell.id == spell_id)
+
+    spellToCheck.components.forEach(component => {
+        if (component.id == component_id) {
+            alert("That component is already part of this spell!");
+            validationValue = false;
+        }
+    })
+
+    return validationValue
 }
 
 // function reloadProcessSelectors() {

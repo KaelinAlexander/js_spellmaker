@@ -5,5 +5,7 @@ class Spell < ApplicationRecord
     validates :name, presence: true
     validates :process, presence: true
     validates :intention, presence: true
+
+    accepts_nested_attributes_for :spells_components
     
 end

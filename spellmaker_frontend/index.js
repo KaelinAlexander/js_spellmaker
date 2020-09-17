@@ -67,7 +67,7 @@ function loadComponents() {
 function loadSelectors() {
     loadComponentUseSelectors();
     loadComponentDeitySelectors();
-
+    loadComponentSelectors();
 }
 
 function loadComponentUseSelectors() {
@@ -110,6 +110,32 @@ function loadComponentDeitySelectors() {
         })
         .catch(errors => console.log(errors))
 
+}
+
+function loadComponentSelectors() {
+    let componentSelector = document.createElement('select')
+    defaultOption = document.createElement('option')
+    defaultOption.value = ""
+    defaultOption.innerText = ""
+    componentSelector.appendChild(defaultOption)
+    fetch(baseUrl + '/components.json')
+        .then(resp => {
+            if (resp.status !== 200) {
+                throw new Error(resp.statusText);
+            }
+            return resp.json();
+        })
+        .then(data => {
+            data.forEach(component => {
+                let componentOption = document.createElement('option')
+                componentOption.value = component.id
+                componentOption.innerText = component.name
+                componentSelector.appendChild(componentOption)
+            })
+            $('select').formSelect();
+        })
+        .catch(errors => console.log(errors))
+    return componentSelector
 }
 
 function getSelectValues(select) {

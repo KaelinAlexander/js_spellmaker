@@ -15,5 +15,6 @@ class Component < ApplicationRecord
     accepts_nested_attributes_for :synonyms
     accepts_nested_attributes_for :components_deities
     accepts_nested_attributes_for :components_uses
+    accepts_nested_attributes_for :spells_components
 
 end
