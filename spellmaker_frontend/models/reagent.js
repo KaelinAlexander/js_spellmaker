@@ -34,10 +34,15 @@ class Reagent {
         h5latin.innerText = this.latin
         h5planet.innerText = this.planet
         h5element.innerText = this.element
-        h5synonyms.innerText = "Synonym Placeholder"
         p.innerText = this.description
 
-        // Add synonym logic here when it's clear what comes back from fetch.
+        let synArray = []
+
+        this.synonyms.forEach(syn => {
+            synArray.push(syn.name)
+        })
+
+        h5synonyms.innerText = synArray.join(', ')
 
         this.deities.forEach(deity => {
             const deityItem = document.createElement('li')
