@@ -163,6 +163,8 @@ class Reagent {
     }
 
 static editComponent() {
+
+    const componentToEdit = Reagent.all.find(component => component.id == this.id)
     
     editingComponent = true
     componentName().value = this.parentNode.querySelector('h4').innerText;
@@ -173,6 +175,17 @@ static editComponent() {
     componentDescription().value = this.parentNode.querySelector('p').innerText;
     // Add logic for check boxes and select boxes here.
     submitComponent().value = "Update Component";
+
+    const selectOptions = []
+
+    componentToEdit.deities.forEach(deity => {
+        selectOptions.push(deity.id)
+    })
+
+    selectOptions.forEach(deityId => {
+        select("component-deities", deityId)
+    })
+    $('select').formSelect();
 
     Reagent.editedComponentId = this.id
 }
