@@ -115,20 +115,34 @@ static createFromForm(e) {
 
 static editSpell() {
     editingSpell = true;
+    const spellToEdit = Spell.all.find(spell => spell.id == this.id)
+
     spellName().value = this.parentNode.querySelector('h4').innerText;
     const options = spellProcess().options
-    
-    for (const option in options) {
-        if (options[option].value == this.parentNode.querySelectorAll('h5')[0].innerText ) {
-            options.selectedIndex = options[option].index
-        }
-    }
+
+    spellProcess().innerHTML = 
+    `
+    <option value="" disabled>--Choose a Process--</option>
+    <option value="Charm" ${ spellToEdit.process == "Charm" ? 'selected' : ''}>Charm</option>
+    <option value="Infusion" ${ spellToEdit.process == "Infusion" ? 'selected' : ''}>Infusion</option>
+    <option value="Bath" ${ spellToEdit.process == "Bath" ? 'selected' : ''}>Bath</option>
+    <option value="Ointment" ${ spellToEdit.process == "Ointment" ? 'selected' : ''}>Ointment</option>
+    <option value="Incense" ${ spellToEdit.process == "Incense" ? 'selected' : ''}>Incense</option>
+    `
     $('select').formSelect();
+
+    // for (const option in options) {
+    //     if (options[option].value == this.parentNode.querySelectorAll('h5')[0].innerText ) {
+    //         options.selectedIndex = options[option].index
+    //     }
+    // }
+    // $('select').formSelect();
     // spellIntention().options.forEach(option => {
     //     if (option.value == this.parentNode.querySelectorAll('h5')[1].innerText ) {
     //         option.selected = true
     //     }
     // })
+
     spellDescription().value = this.parentNode.querySelector('p').innerText;
     submitSpell().value = "Update Spell"
 
@@ -207,6 +221,19 @@ static validateForm() {
     return validationValue
 
 }
+
+// function reloadProcessSelectors() {
+//     spellProcess().innerHTML = 
+//     `
+//     <option value="" disabled>--Choose a Process--</option>
+//     <option value="Charm" ${ spellToEdit.process == "Charm" ? 'selected' : ''}>Charm</option>
+//     <option value="Infusion" ${ spellToEdit.process == "Infusion" ? 'selected' : ''}>Infusion</option>
+//     <option value="Bath" ${ spellToEdit.process == "Bath" ? 'selected' : ''}>Bath</option>
+//     <option value="Ointment" ${ spellToEdit.process == "Ointment" ? 'selected' : ''}>Ointment</option>
+//     <option value="Incense" ${ spellToEdit.process == "Incense" ? 'selected' : ''}>Incense</option>
+//     `
+//     $('select').formSelect();
+// }
 
 }
 
