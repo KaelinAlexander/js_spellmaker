@@ -227,7 +227,7 @@ static updateComponent() {
     })
     .then(resp => resp.json())
     .then(data => {
-        debugger
+        
         let editedComponent = Reagent.all.find(component => component.id == data.id)
         editedComponent.name = data.name
         editedComponent.latin = data.latin

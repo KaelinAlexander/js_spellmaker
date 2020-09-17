@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", callOnLoad)
 function callOnLoad() {
     loadSpells();
     loadComponents();
+    loadSelectors();
     submitSpell().addEventListener('click', Spell.createFromForm);
     submitComponent().addEventListener('click', Reagent.createFromForm);
 }
@@ -63,9 +64,32 @@ function loadComponents() {
         .catch(errors => console.log(errors))
 }
 
-// function loadSelectors() {
+function loadSelectors() {
+    loadComponentUseSelectors();
 
-// }
+}
+
+function loadComponentUseSelectors() {
+    fetch(baseUrl + '/uses.json')
+        .then(resp => {
+            if (resp.status !== 200) {
+                throw new Error(resp.statusText);
+            }
+            return resp.json();
+        })
+        .then(data => {
+            data.forEach(use => {
+                let useOption = document.createElement('option')
+                useOption.value = use.id
+                useOption.innerText = use.name
+                debugger
+                componentUses().appendChild(useOption)
+            })
+            $('select').formSelect();
+        })
+        .catch(errors => console.log(errors))
+
+}
 
 function getSelectValues(select) {
     var result = [];

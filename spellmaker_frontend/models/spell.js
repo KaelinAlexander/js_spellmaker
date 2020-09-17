@@ -118,6 +118,7 @@ static editSpell() {
             options.selectedIndex = options[option].index
         }
     }
+    $('select').formSelect();
     // spellIntention().options.forEach(option => {
     //     if (option.value == this.parentNode.querySelectorAll('h5')[1].innerText ) {
     //         option.selected = true
