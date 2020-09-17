@@ -15,6 +15,10 @@ class ComponentsController < ApplicationController
 
     def update
         @component = Component.find(params[:id].to_i)
+        @components_uses = ComponentsUse.where(component_id: @component.id)
+        @components_uses.destroy_all
+        @components_deities = ComponentsDeity.where(component_id: @component.id)
+        @components_deities.destroy_all
         if @component.update(component_params)
             render json: @component, include: {synonyms: {only: [:id, :name]}, deities: {only: [:id, :name]}, uses: {only: [:id, :name]}}, status: :created
         else
@@ -30,7 +34,7 @@ class ComponentsController < ApplicationController
 
     private
     def component_params
-        params.require(:component).permit(:name, :latin, :planet, :element, :description, :toxic, :deities_attributes => [:name], :uses_attributes => [:name], :synonyms_attributes => [:name] )
+        params.require(:component).permit(:name, :latin, :planet, :element, :description, :toxic, :components_deities_attributes => [:component_id, :deity_id], :deities_attributes => [:name], :uses_attributes => [:name], :synonyms_attributes => [:name] )
     end
 
 end

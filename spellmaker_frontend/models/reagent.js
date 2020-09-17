@@ -115,6 +115,15 @@ class Reagent {
                 deitiesAttributes.push(newDeity)
             })
 
+            const componentsDeitiesAttributes = []
+            const rawComponentsDeities = getSelectValues(componentDeities())
+            rawComponentsDeities.forEach(assoc => {
+                let newAssoc = {}
+                newAssoc["deity_id"] = assoc
+                newAssoc["component_id"] = Reagent.editedComponentId
+                componentsDeitiesAttributes.push(newAssoc)
+            })
+
             const usesAttributes = []
             const rawUses = getSelectValues(componentUses())
             rawUses.forEach(use => {
@@ -141,6 +150,7 @@ class Reagent {
                     toxic: componentToxic().value,
                     synonyms_attributes: synonymsAttributes,
                     deities_attributes: deitiesAttributes,
+                    components_deities_attributes: componentsDeitiesAttributes,
                     uses_attributes: usesAttributes
                 }
             }
@@ -198,11 +208,10 @@ static editComponent() {
     })
     $('select').formSelect();
 
-    debugger
-
     singleSelect("component-planet", componentToEdit.planet)
     singleSelect("component-element", componentToEdit.element)
     singleSelect("component-toxic", componentToEdit.toxic)
+    componentToxic().value = componentToEdit.toxic
 
     M.updateTextFields();
     Reagent.editedComponentId = this.id
@@ -216,6 +225,15 @@ static updateComponent() {
         let newDeity = {}
         newDeity["name"] = deity
         deitiesAttributes.push(newDeity)
+    })
+
+    const componentsDeitiesAttributes = []
+    const rawComponentsDeities = getSelectValues(componentDeities())
+    rawComponentsDeities.forEach(assoc => {
+        let newAssoc = {}
+        newAssoc["deity_id"] = assoc
+        newAssoc["component_id"] = Reagent.editedComponentId
+        componentsDeitiesAttributes.push(newAssoc)
     })
 
     const usesAttributes = []
@@ -243,10 +261,12 @@ static updateComponent() {
             description: componentDescription().value,
             toxic: componentToxic().value,
             synonyms_attributes: synonymsAttributes,
-            deities_attributes: deitiesAttributes,
+            components_deities_attributes: componentsDeitiesAttributes,
             uses_attributes: usesAttributes
         }
     }
+
+    debugger
 
     fetch(baseUrl + '/components/' + Reagent.editedComponentId, {
         method: "PATCH",
