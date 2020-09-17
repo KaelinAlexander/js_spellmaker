@@ -103,9 +103,9 @@ class Reagent {
         
         e.preventDefault();
 
-        if (editingComponent) {
+        if (editingComponent && Reagent.validateForm() == true ) {
             Reagent.updateComponent()
-        } else {
+        } else if ( Reagent.validateForm() == true ) {
 
             const deitiesAttributes = []
             const rawDeities = getSelectValues(componentDeities())
@@ -258,6 +258,29 @@ static deleteComponent() {
         this.parentNode.remove();
     })
     
+}
+
+static validateForm() {
+    
+    let validationValue = true
+
+    if (componentName().value == "") {
+        alert("Component needs a name!");
+        validationValue = false;
+    } 
+
+    if (componentToxic().value == "") {
+        alert("Please indicate whether this component is toxic.");
+        validationValue = false;
+    }
+
+    if (componentElement().value == "") {
+        alert("Component needs and element!");
+        validationValue = false;
+    }
+
+    return validationValue
+
 }
 
 }

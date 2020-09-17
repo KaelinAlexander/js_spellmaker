@@ -79,9 +79,9 @@ static displaySpells() {
 static createFromForm(e) {
     e.preventDefault();
 
-    if (editingSpell) {
+    if (editingSpell && Spell.validateForm() == true ) {
         Spell.updateSpell()
-    } else {
+    } else if (Spell.validateForm() == true ) {
         const strongParams = {
             spell: {
                 name: spellName().value,
@@ -102,6 +102,11 @@ static createFromForm(e) {
         .then(data => {
             let spell = Spell.create(data.id, data.name, data.process, data.intention, data.description, data.components);
             spell.display();
+        })
+        .catch(function(error) {
+            debugger
+            alert("Sometimes things go bad just because.");
+            alert(error);
         })
 
         resetInputs();
@@ -178,6 +183,29 @@ static deleteSpell() {
     .then(data => {
         this.parentNode.remove();
     })
+}
+
+static validateForm() {
+    
+    let validationValue = true
+
+    if (spellName().value == "") {
+        alert("Spell needs a name!");
+        validationValue = false;
+    } 
+
+    if (spellProcess().value == "") {
+        alert("Spell needs a process!");
+        validationValue = false;
+    }
+
+    if (spellIntention().value == "") {
+        alert("Spell needs an intention!");
+        validationValue = false;
+    }
+
+    return validationValue
+
 }
 
 }

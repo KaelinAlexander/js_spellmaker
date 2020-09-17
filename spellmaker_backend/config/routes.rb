@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :components
   resources :spells
   resources :uses
+  resources :deities
+  resources :synonyms
   
   resources :spells_components
 

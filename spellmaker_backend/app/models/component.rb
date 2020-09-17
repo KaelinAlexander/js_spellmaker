@@ -14,4 +14,6 @@ class Component < ApplicationRecord
     accepts_nested_attributes_for :uses
     accepts_nested_attributes_for :synonyms
 
+    validates :name, uniqueness: true, presence: true
+
 end

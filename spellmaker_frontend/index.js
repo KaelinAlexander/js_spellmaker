@@ -66,6 +66,7 @@ function loadComponents() {
 
 function loadSelectors() {
     loadComponentUseSelectors();
+    loadComponentDeitySelectors();
 
 }
 
@@ -82,8 +83,28 @@ function loadComponentUseSelectors() {
                 let useOption = document.createElement('option')
                 useOption.value = use.id
                 useOption.innerText = use.name
-                debugger
                 componentUses().appendChild(useOption)
+            })
+            $('select').formSelect();
+        })
+        .catch(errors => console.log(errors))
+
+}
+
+function loadComponentDeitySelectors() {
+    fetch(baseUrl + '/deities.json')
+        .then(resp => {
+            if (resp.status !== 200) {
+                throw new Error(resp.statusText);
+            }
+            return resp.json();
+        })
+        .then(data => {
+            data.forEach(use => {
+                let useOption = document.createElement('option')
+                useOption.value = use.id
+                useOption.innerText = use.name
+                componentDeities().appendChild(useOption)
             })
             $('select').formSelect();
         })
