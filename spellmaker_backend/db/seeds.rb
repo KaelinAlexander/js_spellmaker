@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 (1..10).to_a.each do |num|
-    Spell.create(name: "Spell #{num}", process: "Charm", intention: "Intention #{num}", description: "Here's a description of the spell.")
+    Spell.create(name: "Spell #{num}", process: "Charm", intention: "Exorcism", description: "Here's a description of the spell.")
 end
 
 (1..10).to_a.each do |num|

@@ -61,10 +61,23 @@
             
             <div class="input-field col s12">
                 <select name="spell-intention" id="spell-intention">
-                    <option value="" disabled>--Choose an Intention--</option>
-                    <option value="Protection">Protection</option>
-                    <option value="Love">Love</option>
+                    <option value="">--Choose an Intention--</option>
+                    <option value="Clairvoyance">Clairvoyance</option>
                     <option value="Exorcism">Exorcism</option>
+                    <option value="Fertility">Fertility</option>
+                    <option value="Fidelity">Fidelity</option>
+                    <option value="Healing">Healing</option>
+                    <option value="Hex Breaking">Hex Breaking</option>
+                    <option value="Love">Love</option>
+                    <option value="Luck">Luck</option>
+                    <option value="Lust">Lust</option>
+                    <option value="Money">Money</option>
+                    <option value="Mood">Mood</option>
+                    <option value="Protection">Protection</option>
+                    <option value="Purification">Purification</option>
+                    <option value="Sleep">Sleep</option>
+                    <option value="Spirituality">Spirituality</option>         
+                    <option value="Wisdom">Wisdom</option>               
                 </select>
                 <label for="spell-intention">Spell Intention</label>              
             </div>
@@ -191,6 +204,11 @@
         <script>
         $(document).ready(function(){
           $('select').formSelect();
+        });
+        </script>
+        <script>
+        $(document).ready(function() {
+            M.updateTextFields();
         });
         </script>
 

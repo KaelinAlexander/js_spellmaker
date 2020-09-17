@@ -118,7 +118,9 @@ static editSpell() {
     const spellToEdit = Spell.all.find(spell => spell.id == this.id)
 
     spellName().value = this.parentNode.querySelector('h4').innerText;
-    const options = spellProcess().options
+    spellDescription().value = this.parentNode.querySelector('p').innerText;
+
+    M.updateTextFields();
 
     spellProcess().innerHTML = 
     `
@@ -131,19 +133,29 @@ static editSpell() {
     `
     $('select').formSelect();
 
-    // for (const option in options) {
-    //     if (options[option].value == this.parentNode.querySelectorAll('h5')[0].innerText ) {
-    //         options.selectedIndex = options[option].index
-    //     }
-    // }
-    // $('select').formSelect();
-    // spellIntention().options.forEach(option => {
-    //     if (option.value == this.parentNode.querySelectorAll('h5')[1].innerText ) {
-    //         option.selected = true
-    //     }
-    // })
+    spellIntention().innerHTML =
+    `
+    <option value="">--Choose an Intention--</option>
+    <option value="Clairvoyance" ${ spellToEdit.intention == "Clairvoyance" ? 'selected' : ''}>Clairvoyance</option>
+    <option value="Exorcism" ${ spellToEdit.intention == "Exorcism" ? 'selected' : ''}>Exorcism</option>
+    <option value="Fertility" ${ spellToEdit.intention == "Fertility" ? 'selected' : ''}>Fertility</option>
+    <option value="Fidelity" ${ spellToEdit.intention == "Fidelity" ? 'selected' : ''}>Fidelity</option>
+    <option value="Healing" ${ spellToEdit.intention == "Healing" ? 'selected' : ''}>Healing</option>
+    <option value="Hex Breaking" ${ spellToEdit.intention == "Hex Breaking" ? 'selected' : ''}>Hex Breaking</option>
+    <option value="Love" ${ spellToEdit.intention == "Love" ? 'selected' : ''}>Love</option>
+    <option value="Luck" ${ spellToEdit.intention == "Luck" ? 'selected' : ''}>Luck</option>
+    <option value="Lust" ${ spellToEdit.intention == "Lust" ? 'selected' : ''}>Lust</option>
+    <option value="Money" ${ spellToEdit.intention == "Money" ? 'selected' : ''}>Money</option>
+    <option value="Mood" ${ spellToEdit.intention == "Mood" ? 'selected' : ''}>Mood</option>
+    <option value="Protection" ${ spellToEdit.intention == "Protection" ? 'selected' : ''}>Protection</option>
+    <option value="Purification" ${ spellToEdit.intention == "Purification" ? 'selected' : ''}>Purification</option>
+    <option value="Sleep" ${ spellToEdit.intention == "Sleep" ? 'selected' : ''}>Sleep</option>
+    <option value="Spirituality" ${ spellToEdit.intention == "Spirituality" ? 'selected' : ''}>Spirituality</option>         
+    <option value="Wisdom" ${ spellToEdit.intention == "Wisdom" ? 'selected' : ''}>Wisdom</option>    
+    `
 
-    spellDescription().value = this.parentNode.querySelector('p').innerText;
+    $('select').formSelect();
+
     submitSpell().value = "Update Spell"
 
     Spell.editedSpellId = this.id
