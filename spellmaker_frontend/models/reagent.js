@@ -107,29 +107,20 @@ class Reagent {
             Reagent.updateComponent()
         } else if ( Reagent.validateForm() == true ) {
 
-            const deitiesAttributes = []
-            const rawDeities = getSelectValues(componentDeities())
-            rawDeities.forEach(deity => {
-                let newDeity = {}
-                newDeity["name"] = deity
-                deitiesAttributes.push(newDeity)
-            })
-
             const componentsDeitiesAttributes = []
             const rawComponentsDeities = getSelectValues(componentDeities())
             rawComponentsDeities.forEach(assoc => {
                 let newAssoc = {}
                 newAssoc["deity_id"] = assoc
-                newAssoc["component_id"] = Reagent.editedComponentId
                 componentsDeitiesAttributes.push(newAssoc)
             })
 
-            const usesAttributes = []
-            const rawUses = getSelectValues(componentUses())
-            rawUses.forEach(use => {
-                let newUse = {}
-                newUse["name"] = use
-                usesAttributes.push(newUse)
+            const componentsUsesAttributes = []
+            const rawComponentsUses = getSelectValues(componentUses())
+            rawComponentsUses.forEach(assoc => {
+                let newAssoc = {}
+                newAssoc["use_id"] = assoc
+                componentsUsesAttributes.push(newAssoc)
             })
 
             const synonymsAttributes = []
@@ -149,9 +140,8 @@ class Reagent {
                     description: componentDescription().value,
                     toxic: componentToxic().value,
                     synonyms_attributes: synonymsAttributes,
-                    deities_attributes: deitiesAttributes,
                     components_deities_attributes: componentsDeitiesAttributes,
-                    uses_attributes: usesAttributes
+                    components_uses_attributes: componentsUsesAttributes
                 }
             }
         fetch(baseUrl + '/components.json', {
@@ -209,8 +199,11 @@ static editComponent() {
     $('select').formSelect();
 
     singleSelect("component-planet", componentToEdit.planet)
+    $('select').formSelect();
     singleSelect("component-element", componentToEdit.element)
+    $('select').formSelect();
     singleSelect("component-toxic", componentToEdit.toxic)
+    $('select').formSelect();
     componentToxic().value = componentToEdit.toxic
 
     M.updateTextFields();
@@ -218,14 +211,6 @@ static editComponent() {
 }
 
 static updateComponent() {
-
-    const deitiesAttributes = []
-    const rawDeities = getSelectValues(componentDeities())
-    rawDeities.forEach(deity => {
-        let newDeity = {}
-        newDeity["name"] = deity
-        deitiesAttributes.push(newDeity)
-    })
 
     const componentsDeitiesAttributes = []
     const rawComponentsDeities = getSelectValues(componentDeities())
@@ -236,12 +221,12 @@ static updateComponent() {
         componentsDeitiesAttributes.push(newAssoc)
     })
 
-    const usesAttributes = []
-    const rawUses = getSelectValues(componentUses())
-    rawUses.forEach(use => {
-        let newUse = {}
-        newUse["name"] = use
-        usesAttributes.push(newUse)
+    const componentsUsesAttributes = []
+    const rawComponentsUses = getSelectValues(componentUses())
+    rawComponentsUses.forEach(assoc => {
+        let newAssoc = {}
+        newAssoc["use_id"] = assoc
+        componentsUsesAttributes.push(newAssoc)
     })
 
     const synonymsAttributes = []
@@ -262,7 +247,7 @@ static updateComponent() {
             toxic: componentToxic().value,
             synonyms_attributes: synonymsAttributes,
             components_deities_attributes: componentsDeitiesAttributes,
-            uses_attributes: usesAttributes
+            components_uses_attributes: componentsUsesAttributes
         }
     }
 
