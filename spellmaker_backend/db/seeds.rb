@@ -10,7 +10,7 @@
 end
 
 (1..10).to_a.each do |num|
-    Component.create(name: "Component #{num}", latin: "Nomen Latine", planet: "Celestial Body", element: "Element", description: "Here's a description of the component, including assocciated lore.", toxic: false)
+    Component.create(name: "Component #{num}", latin: "Nomen Latine", planet: "Mercury", element: "Air", description: "Here's a description of the component, including assocciated lore.", toxic: false)
 end
 
 (1..10).to_a.each do |num|

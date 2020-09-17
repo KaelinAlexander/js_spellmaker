@@ -176,17 +176,35 @@ static editComponent() {
     // Add logic for check boxes and select boxes here.
     submitComponent().value = "Update Component";
 
-    const selectOptions = []
-
+    const deityOptions = []
+ 
     componentToEdit.deities.forEach(deity => {
-        selectOptions.push(deity.id)
+        deityOptions.push(deity.id)
     })
 
-    selectOptions.forEach(deityId => {
+    deityOptions.forEach(deityId => {
         select("component-deities", deityId)
     })
     $('select').formSelect();
 
+    const useOptions = []
+
+    componentToEdit.uses.forEach(use => {
+        useOptions.push(use.id)
+    })
+
+    useOptions.forEach(useId => {
+        select("component-uses", useId)
+    })
+    $('select').formSelect();
+
+    debugger
+
+    singleSelect("component-planet", componentToEdit.planet)
+    singleSelect("component-element", componentToEdit.element)
+    singleSelect("component-toxic", componentToEdit.toxic)
+
+    M.updateTextFields();
     Reagent.editedComponentId = this.id
 }
 
