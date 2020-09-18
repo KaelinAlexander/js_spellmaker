@@ -47,7 +47,7 @@ componentAddSubmit.id = this.id
 componentAddSubmit.addEventListener('click', Spell.addComponent)
 
 this.components.forEach(spellcomponent => {
-    const componentItem = document.createElement('li')
+    const componentItem = document.createElement('li')    
     componentItem.innerText = `${spellcomponent.name}   `
     componentItem.id = spellcomponent.id
 
@@ -280,12 +280,25 @@ static addComponent(e) {
             body: JSON.stringify(strongParams)
         })
         .then(resp => resp.json())
-        .then(data => {
+        .then(data => { 
+
+            debugger
+
             const existingUl = this.parentNode.parentNode.querySelector('ul')
-            const newLi = document.createElement('li')
-            newLi.innerText = data.component.name
-            newLi.id = data.component.id
-            existingUl.appendChild(newLi)
+            const componentItem = document.createElement('li')
+            componentItem.innerText = `${data.component.name}   `
+            componentItem.id = data.component_id
+        
+            const componentRemove = document.createElement('i')
+            componentRemove.classList.add("material-icons")
+            componentRemove.id = data.component_id
+
+            componentRemove.innerText = "clear"
+            componentRemove.addEventListener('click', Spell.removeComponent)
+        
+            componentItem.append(componentRemove)
+
+            existingUl.appendChild(componentItem)
         })
         .catch(function(error) {
             alert("Sometimes things go bad just because.");
@@ -316,7 +329,6 @@ static removeComponent() {
     })
     .then(resp => resp.json())
     .then(data => {
-        debugger
         this.parentNode.remove();
     })
     .catch(function(error) {
