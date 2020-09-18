@@ -24,7 +24,7 @@ class Reagent {
         cardDiv.classList.add("card", "medium")
         const cardImageDiv = document.createElement('div')
         cardImageDiv.classList.add("card-image", "waves-effect", "waves-block", "waves-light")
-        cardImageDiv.innerHTML = `<img class="activator" src="images/planets/jupiter_bw.png">`
+        cardImageDiv.innerHTML = `<img class="activator" src="images/components/basil.jpg">`
         const cardContent = document.createElement('div')
         cardContent.classList.add("card-content")
         const cardNameSpan = document.createElement('span')
@@ -36,24 +36,17 @@ class Reagent {
         const pElement = document.createElement('p')
         const pPlanet = document.createElement('p')
         
-        // const editIcon = document.createElement('i')
-        // editIcon.classlist.add("material-icons", "right")
-        // editIcon.innerText = "edit"
+        const editIcon = document.createElement('i')
+        editIcon.classList.add("material-icons", "right")
+        editIcon.id = this.id
+        editIcon.innerText = "edit"
+        editIcon.addEventListener('click', Reagent.editComponent)
 
-        // const deleteIcon = document.createElement('i')
-        // deleteIcon.classList.add("material-icons", "right")
-        // deleteIcon.innerText = "delete"
-
-        const editButton = document.createElement('button');
-        const deleteButton = document.createElement('button');
-
-        editButton.innerText = "Edit"
-        editButton.id = this.id
-        editButton.addEventListener('click', Reagent.editComponent)
-
-        deleteButton.innerText = "Delete"
-        deleteButton.id = this.id
-        deleteButton.addEventListener('click', Reagent.deleteComponent)
+        const deleteIcon = document.createElement('i')
+        deleteIcon.classList.add("material-icons", "right")
+        deleteIcon.id = this.id
+        deleteIcon.innerText = "delete"
+        deleteIcon.addEventListener('click', Reagent.deleteComponent)
 
         const cardRevealDiv = document.createElement('div')
         cardRevealDiv.classList.add("card-reveal")
@@ -114,8 +107,8 @@ class Reagent {
                         toxicFlag.innerText = "DO NOT CONSUME"
                         cardContent.appendChild(toxicFlag)
                     }
-                    cardContent.appendChild(editButton)
-                    cardContent.appendChild(deleteButton)
+                    cardContent.appendChild(editIcon)
+                    cardContent.appendChild(deleteIcon)
                 cardDiv.appendChild(cardRevealDiv)
                 cardRevealDiv.appendChild(spanLatin)
                 cardRevealDiv.appendChild(deitiesList)
@@ -329,7 +322,7 @@ static editComponent() {
     $('select').formSelect();
     componentToxic().value = componentToEdit.toxic
     $('select').formSelect();
-    
+
     M.updateTextFields();
     Reagent.editedComponentId = this.id
 }
@@ -413,7 +406,8 @@ static deleteComponent() {
         return resp.json();
     })
     .then(data => {
-        this.parentNode.remove();
+        debugger
+        this.parentNode.parentNode.parentNode.remove();
 
         // Find a workaround for this; it's kind of a nuclear option.
 
