@@ -32,6 +32,7 @@ h4.innerText = this.name
 h5process.innerText = this.process
 h5intention.innerText = this.intention
 p.innerText = this.description
+div.id = this.id
 
 editButton.innerText = "Edit"
 editButton.id = this.id
@@ -47,8 +48,18 @@ componentAddSubmit.addEventListener('click', Spell.addComponent)
 
 this.components.forEach(spellcomponent => {
     const componentItem = document.createElement('li')
-    componentItem.innerText = spellcomponent.name
+    componentItem.innerText = `${spellcomponent.name}   `
     componentItem.id = spellcomponent.id
+
+    const componentRemove = document.createElement('i')
+    componentRemove.classList.add("material-icons")
+    componentRemove.id = spellcomponent.id
+
+    componentRemove.innerText = "clear"
+    componentRemove.addEventListener('click', Spell.removeComponent)
+
+    componentItem.append(componentRemove)
+
     componentList.appendChild(componentItem)
 })
 
@@ -281,6 +292,37 @@ static addComponent(e) {
             alert(error);
         })
     }
+}
+
+static removeComponent() {
+
+    const componentId = this.id
+    const spellId = this.parentNode.parentNode.parentNode.id
+
+    const strongParams = {
+        spells_component: {
+            spell_id: spellId,
+            component_id: componentId
+        }
+    }
+
+    fetch(baseUrl + '/spells_components/deletion', {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(strongParams)
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        console.log(data)
+    })
+    .catch(function(error) {
+        alert("Sometimes things go bad just because.");
+        alert(error);
+    })
+
 }
 
 static validateAdd (spell_id, component_id) {

@@ -18,8 +18,9 @@ class SpellsComponentsController < ApplicationController
         end 
     end
 
-    def destroy
-        @assoc = Component.find(params[:id].to_i)
+    def deletion
+        @assoc = SpellsComponent.where(spell_id: params[:spell_id], component_id: params[:component_id])
+        byebug
         @assoc.destroy
         render json: @assoc
     end
