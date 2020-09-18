@@ -23,6 +23,7 @@ display () {
     const deleteButton = document.createElement('button');
     const componentList = document.createElement('ul')
     const componentSelectorForm = document.createElement('form')
+    componentSelectorForm.classList.add("component-selector-form")
     const componentSelectorDropDown = loadComponentSelectors();
     const componentAddSubmit = document.createElement('button')
 
@@ -50,6 +51,7 @@ this.components.forEach(spellcomponent => {
     const componentItem = document.createElement('li')    
     componentItem.innerText = `${spellcomponent.name}   `
     componentItem.id = spellcomponent.id
+    componentItem.classList.add("component-li")
 
     const componentRemove = document.createElement('i')
     componentRemove.classList.add("material-icons")
@@ -140,8 +142,8 @@ static editSpell() {
     editingSpell = true;
     const spellToEdit = Spell.all.find(spell => spell.id == this.id)
 
-    spellName().value = this.parentNode.querySelector('h4').innerText;
-    spellDescription().value = this.parentNode.querySelector('p').innerText;
+    spellName().value = spellToEdit.name
+    spellDescription().value = spellToEdit.description
 
     M.updateTextFields();
 
@@ -262,7 +264,7 @@ static addComponent(e) {
 
     const componentId = this.parentNode.querySelector('select').value
 
-    if ( Spell.validateAdd(this.id, componentId) == true ) {
+    if ( componentId != "" && Spell.validateAdd(this.id, componentId) == true ) {
 
         const strongParams = {
             spells_component: {
@@ -282,12 +284,11 @@ static addComponent(e) {
         .then(resp => resp.json())
         .then(data => { 
 
-            debugger
-
             const existingUl = this.parentNode.parentNode.querySelector('ul')
             const componentItem = document.createElement('li')
             componentItem.innerText = `${data.component.name}   `
             componentItem.id = data.component_id
+            componentItem.classList.add("component-li")
         
             const componentRemove = document.createElement('i')
             componentRemove.classList.add("material-icons")
@@ -304,6 +305,8 @@ static addComponent(e) {
             alert("Sometimes things go bad just because.");
             alert(error);
         })
+    } else {
+        alert("Please select a component.")
     }
 }
 
@@ -339,6 +342,7 @@ static removeComponent() {
 }
 
 static validateAdd (spell_id, component_id) {
+    
     let validationValue = true
     const spellToCheck = Spell.all.find(spell => spell.id == spell_id)
 

@@ -256,8 +256,6 @@ static updateComponent() {
         }
     }
 
-    debugger
-
     fetch(baseUrl + '/components/' + Reagent.editedComponentId, {
         method: "PATCH",
         headers: {
@@ -297,6 +295,14 @@ static deleteComponent() {
     })
     .then(data => {
         this.parentNode.remove();
+
+        // Find a workaround for this; it's kind of a nuclear option.
+
+        // spellList().innerHTML = ""
+        Spell.displaySpells();
+        loadSelectors();
+        removeComponentLis(data.id);
+        resetInputs(); 
     })
     
 }

@@ -68,6 +68,8 @@ function loadSelectors() {
     loadComponentUseSelectors();
     loadComponentDeitySelectors();
     loadComponentSelectors();
+    loadComponentUseSelectors();
+    $('select').formSelect();
 }
 
 function loadComponentUseSelectors() {
@@ -130,6 +132,7 @@ function loadComponentSelectors() {
                 let componentOption = document.createElement('option')
                 componentOption.value = component.id
                 componentOption.innerText = component.name
+                componentOption.class = "component-selector"
                 componentSelector.appendChild(componentOption)
             })
             $('select').formSelect();
@@ -154,15 +157,12 @@ function getSelectValues(select) {
   }
 
 function select(selectId, optionValToSelect){
-    //Get the select element by it's unique ID.
+   
     var selectElement = document.getElementById(selectId);
-    //Get the options.
     var selectOptions = selectElement.options;
-    //Loop through these options using a for loop.
+    
     for (var opt, j = 0; opt = selectOptions[j]; j++) {
-        //If the option of value is equal to the option we want to select.
         if (opt.value == optionValToSelect) {
-            //Select the option and break out of the for loop.
             opt.selected = true
             break;
         }
@@ -170,22 +170,54 @@ function select(selectId, optionValToSelect){
 }
 
 function singleSelect(selectId, optionValToSelect){
-    //Get the select element by it's unique ID.
+
     var selectElement = document.getElementById(selectId);
-    //Get the options.
     var selectOptions = selectElement.options;
-    //Loop through these options using a for loop.
+
     for (var opt, j = 0; opt = selectOptions[j]; j++) {
-        //If the option of value is equal to the option we want to select.
         if (opt.value == optionValToSelect) {
-            //Select the option and break out of the for loop.
             selectElement.selectedIndex = j;
             break;
         }
     }
 }
 
+function removeComponentLis(componentId) {
+
+    const liTags = document.getElementsByClassName("component-li");
+    const searchId = componentId
+
+    for (var i = 0; i < liTags.length; i++) {
+    if (liTags[i].id == searchId) {
+       liTags[i].remove();
+    }
+    }
+
+}
+
+function removeComponentOptions(componentId) {
+
+    const optionTags = document.getElementsByClassName("component-selector");
+    const searchId = componentId
+
+    debugger
+
+    for (var i = 0; i < optionTags.length; i++) {
+    if (optionTags[i].id == searchId) {
+       optionTags[i].remove();
+    }
+    }
+
+}
+
 function resetInputs() {
+    // const componentSelectorForms = document.getElementsByClassName("component-selector-form")
+
+    // componentSelectorForms.forEach(form => {
+    //     form.innerHTML = ""
+    // })
+
     spellForm().reset();
-    componentForm().reset();    
+    componentForm().reset();
+    loadSelectors();    
 }
