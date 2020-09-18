@@ -316,7 +316,8 @@ static removeComponent() {
     })
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
+        debugger
+        this.parentNode.remove();
     })
     .catch(function(error) {
         alert("Sometimes things go bad just because.");
