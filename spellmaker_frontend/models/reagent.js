@@ -406,7 +406,7 @@ static deleteComponent() {
         return resp.json();
     })
     .then(data => {
-        debugger
+        
         this.parentNode.parentNode.parentNode.remove();
 
         // Find a workaround for this; it's kind of a nuclear option.

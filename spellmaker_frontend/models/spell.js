@@ -13,7 +13,103 @@ constructor(id, name, process, intention, description, components) {
     this.components = components
 }
 
-display () {
+display() {
+
+    const innerDiv = document.createElement('div')
+    innerDiv.id = this.id
+    innerDiv.classList.add("col", "s6")
+    const cardDiv = document.createElement('div')
+    cardDiv.classList.add("card", "medium")
+    const cardImageDiv = document.createElement('div')
+    cardImageDiv.classList.add("card-image", "waves-effect", "waves-block", "waves-light")
+    cardImageDiv.innerHTML = `<img class="activator" src="images/components/basil.jpg">`
+    const cardContent = document.createElement('div')
+    cardContent.classList.add("card-content")
+    const cardNameSpan = document.createElement('span')
+    cardNameSpan.classList.add("card-title", "activator", "grey-text", "text-darken-4")
+    const activatorIcon = document.createElement('i')
+    activatorIcon.classList.add("material-icons", "right")
+    activatorIcon.innerText = "more_vert"
+
+    const pProcess = document.createElement('p')
+    const pIntention = document.createElement('p')
+
+    const componentList = document.createElement('ul')
+    const componentSelectorForm = document.createElement('form')
+    componentSelectorForm.classList.add("component-selector-form")
+    const componentSelectorDropDown = loadComponentSelectors();
+
+    const componentAddSubmit = document.createElement('button')
+    componentAddSubmit.innerText = "Add Component"
+    componentAddSubmit.id = this.id
+    componentAddSubmit.addEventListener('click', Spell.addComponent)
+    
+    const editIcon = document.createElement('i')
+    editIcon.classList.add("material-icons", "right")
+    editIcon.id = this.id
+    editIcon.innerText = "edit"
+    editIcon.addEventListener('click', Spell.editSpell)
+
+    const deleteIcon = document.createElement('i')
+    deleteIcon.classList.add("material-icons", "right")
+    deleteIcon.id = this.id
+    deleteIcon.innerText = "delete"
+    deleteIcon.addEventListener('click', Spell.deleteSpell)
+
+    const cardRevealDiv = document.createElement('div')
+    cardRevealDiv.classList.add("card-reveal")
+
+    const spanName = document.createElement('span')
+    spanName.classList.add("card-title", "grey-text", "text-darken-4")
+
+    const pDescription = document.createElement('p')
+
+
+    cardNameSpan.innerText = this.name
+    spanName.innerText = this.name
+
+    pProcess.innerText = this.process
+    pIntention.innerText = this.intention
+    pDescription.innerText = this.description
+
+    this.components.forEach(spellcomponent => {
+        const componentItem = document.createElement('li')    
+        componentItem.innerText = `${spellcomponent.name}   `
+        componentItem.id = spellcomponent.id
+        componentItem.classList.add("component-li")
+    
+        const componentRemove = document.createElement('i')
+        componentRemove.classList.add("material-icons")
+        componentRemove.id = spellcomponent.id
+    
+        componentRemove.innerText = "clear"
+        componentRemove.addEventListener('click', Spell.removeComponent)
+    
+        componentItem.append(componentRemove)
+    
+        componentList.appendChild(componentItem)
+    })
+
+        innerDiv.appendChild(cardDiv)
+            cardDiv.appendChild(cardImageDiv)
+            cardDiv.appendChild(cardContent)
+                cardContent.appendChild(cardNameSpan)
+                cardContent.appendChild(pProcess)
+                cardContent.appendChild(pIntention)
+                cardContent.appendChild(editIcon)
+                cardContent.appendChild(deleteIcon)
+            cardDiv.appendChild(cardRevealDiv)
+            cardRevealDiv.appendChild(spanName)
+            cardRevealDiv.appendChild(componentList)
+            cardRevealDiv.appendChild(pDescription)
+            cardRevealDiv.appendChild(componentSelectorForm)
+            componentSelectorForm.appendChild(componentSelectorDropDown)
+            componentSelectorForm.appendChild(componentAddSubmit)
+
+    spellList().appendChild(innerDiv)
+}
+
+displayOld () {
     const div = document.createElement('div');
     const h4 = document.createElement('h4');
     const h5process = document.createElement('h5');
@@ -232,7 +328,7 @@ static deleteSpell() {
         return resp.json();
     })
     .then(data => {
-        this.parentNode.remove();
+        this.parentNode.parentNode.parentNode.remove();
     })
 }
 
@@ -308,12 +404,15 @@ static addComponent(e) {
     } else {
         alert("Please select a component.")
     }
+
+    resetInputs();
+
 }
 
 static removeComponent() {
 
     const componentId = this.id
-    const spellId = this.parentNode.parentNode.parentNode.id
+    const spellId = this.parentNode.parentNode.parentNode.parentNode.parentNode.id
 
     const strongParams = {
         spells_component: {
