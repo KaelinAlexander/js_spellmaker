@@ -17,6 +17,115 @@ class Reagent {
     }
 
     display() {
+
+        const innerDiv = document.createElement('div')
+        innerDiv.classList.add("col", "s4")
+        const cardDiv = document.createElement('div')
+        cardDiv.classList.add("card", "medium")
+        const cardImageDiv = document.createElement('div')
+        cardImageDiv.classList.add("card-image", "waves-effect", "waves-block", "waves-light")
+        cardImageDiv.innerHTML = `<img class="activator" src="images/planets/jupiter_bw.png">`
+        const cardContent = document.createElement('div')
+        cardContent.classList.add("card-content")
+        const cardNameSpan = document.createElement('span')
+        cardNameSpan.classList.add("card-title", "activator", "grey-text", "text-darken-4")
+        const activatorIcon = document.createElement('i')
+        activatorIcon.classList.add("material-icons", "right")
+        activatorIcon.innerText = "more_vert"
+
+        const pElement = document.createElement('p')
+        const pPlanet = document.createElement('p')
+        
+        // const editIcon = document.createElement('i')
+        // editIcon.classlist.add("material-icons", "right")
+        // editIcon.innerText = "edit"
+
+        // const deleteIcon = document.createElement('i')
+        // deleteIcon.classList.add("material-icons", "right")
+        // deleteIcon.innerText = "delete"
+
+        const editButton = document.createElement('button');
+        const deleteButton = document.createElement('button');
+
+        editButton.innerText = "Edit"
+        editButton.id = this.id
+        editButton.addEventListener('click', Reagent.editComponent)
+
+        deleteButton.innerText = "Delete"
+        deleteButton.id = this.id
+        deleteButton.addEventListener('click', Reagent.deleteComponent)
+
+        const cardRevealDiv = document.createElement('div')
+        cardRevealDiv.classList.add("card-reveal")
+
+        const spanLatin = document.createElement('span')
+        spanLatin.classList.add("card-title", "grey-text", "text-darken-4")
+
+
+        const pDescription = document.createElement('p')
+        const pSynonyms = document.createElement('p')
+
+        const usesList = document.createElement('ul')
+        const deitiesList = document.createElement('ul')
+
+        cardNameSpan.innerText = this.name
+        spanLatin.innerText = this.latin
+
+        pPlanet.innerText = this.planet
+        pElement.innerText = this.element
+        pDescription.innerText = this.description
+
+        let synArray = []
+
+        this.synonyms.forEach(syn => {
+            synArray.push(syn.name)
+        })
+
+        pSynonyms.innerText = synArray.join(', ')
+
+        this.deities.forEach(deity => {
+            const deityItem = document.createElement('li')
+            deityItem.innerText = deity.name
+            deityItem.id = deity.id
+            deitiesList.appendChild(deityItem)
+        })
+
+        this.uses.forEach(use => {
+            const useItem = document.createElement('li')
+            useItem.innerText = use.name
+            useItem.id = use.id
+            usesList.appendChild(useItem)
+        })
+
+        // editIcon.id = this.id
+        // editIcon.addEventListener('click', Reagent.editComponent)
+
+        // deleteIcon.id = this.id
+        // deleteIcon.addEventListener('click', Reagent.deleteComponent)
+
+            innerDiv.appendChild(cardDiv)
+                cardDiv.appendChild(cardImageDiv)
+                cardDiv.appendChild(cardContent)
+                    cardContent.appendChild(cardNameSpan)
+                    cardContent.appendChild(pElement)
+                    cardContent.appendChild(pPlanet)
+                    if (this.toxic == true) {
+                        const toxicFlag = document.createElement('p');
+                        toxicFlag.innerText = "DO NOT CONSUME"
+                        cardContent.appendChild(toxicFlag)
+                    }
+                    cardContent.appendChild(editButton)
+                    cardContent.appendChild(deleteButton)
+                cardDiv.appendChild(cardRevealDiv)
+                cardRevealDiv.appendChild(spanLatin)
+                cardRevealDiv.appendChild(deitiesList)
+                cardRevealDiv.appendChild(usesList)
+                cardRevealDiv.appendChild(pDescription)
+
+        componentList().appendChild(innerDiv)
+    }
+
+    displayOld() {
         
         const div = document.createElement('div');
         const h4 = document.createElement('h4');
