@@ -281,12 +281,21 @@ static editComponent() {
     const componentToEdit = Reagent.all.find(component => component.id == this.id)
     
     editingComponent = true
-    componentName().value = this.parentNode.querySelector('h4').innerText;
-    componentLatin().value = this.parentNode.querySelectorAll('h5')[0].innerText;
-    componentPlanet().value = this.parentNode.querySelectorAll('h5')[1].innerText;
-    componentElement().value = this.parentNode.querySelectorAll('h5')[2].innerText;
-    componentSynonyms().value = this.parentNode.querySelectorAll('h5')[3].innerText;
-    componentDescription().value = this.parentNode.querySelector('p').innerText;
+    componentName().value = componentToEdit.name
+    componentLatin().value = componentToEdit.latin
+    componentPlanet().value = componentToEdit.planet
+    componentElement().value = componentToEdit.element
+
+    let synArray = []
+
+    componentToEdit.synonyms.forEach(syn => {
+        synArray.push(syn.name)
+    })
+
+    let synString = synArray.join(', ')
+
+    componentSynonyms().value = synString
+    componentDescription().value = componentToEdit.description
     // Add logic for check boxes and select boxes here.
     submitComponent().value = "Update Component";
 
@@ -319,7 +328,8 @@ static editComponent() {
     singleSelect("component-toxic", componentToEdit.toxic)
     $('select').formSelect();
     componentToxic().value = componentToEdit.toxic
-
+    $('select').formSelect();
+    
     M.updateTextFields();
     Reagent.editedComponentId = this.id
 }
