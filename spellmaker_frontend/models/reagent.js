@@ -325,6 +325,8 @@ static editComponent() {
 
     M.updateTextFields();
     Reagent.editedComponentId = this.id
+
+    window.location.hash = "component-form-jump"
 }
 
 static updateComponent() {

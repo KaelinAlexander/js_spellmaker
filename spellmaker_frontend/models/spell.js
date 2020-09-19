@@ -280,6 +280,8 @@ static editSpell() {
     submitSpell().value = "Update Spell"
 
     Spell.editedSpellId = this.id
+
+    window.location.hash = "spell-form-jump"
 }
 
 static updateSpell() {
