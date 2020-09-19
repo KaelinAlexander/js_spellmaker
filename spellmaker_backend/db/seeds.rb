@@ -5,8 +5,20 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-(1..10).to_a.each do |num|
-    Spell.create(name: "Spell #{num}", process: "Charm", intention: "Exorcism", description: "Here's a description of the spell.")
+(1..2).to_a.each do |num|
+    Spell.create(name: "Incense #{num}", process: "Incense", intention: "Exorcism", description: "Here's a description of the spell.")
+end
+
+(1..2).to_a.each do |num|
+    Spell.create(name: "Ointment #{num}", process: "Ointment", intention: "Exorcism", description: "Here's a description of the spell.")
+end
+
+(1..2).to_a.each do |num|
+    Spell.create(name: "Infusion #{num}", process: "Infusion", intention: "Exorcism", description: "Here's a description of the spell.")
+end
+
+(1..2).to_a.each do |num|
+    Spell.create(name: "Bath #{num}", process: "Bath", intention: "Exorcism", description: "Here's a description of the spell.")
 end
 
 (1..10).to_a.each do |num|
@@ -30,7 +42,7 @@ end
 end
 
 (1..10).to_a.each do |num|
-    ComponentsDeity.create(component_id: num, deity_id: num)
+    ComponentsDeity.create(component_id: num)
 end
 
 Use.create(name: "Protection")

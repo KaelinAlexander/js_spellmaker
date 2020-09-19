@@ -282,6 +282,7 @@ static editSpell() {
     Spell.editedSpellId = this.id
 
     window.location.hash = "spell-form-jump"
+    removeHash();
 }
 
 static updateSpell() {

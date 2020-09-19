@@ -327,6 +327,7 @@ static editComponent() {
     Reagent.editedComponentId = this.id
 
     window.location.hash = "component-form-jump"
+    removeHash();
 }
 
 static updateComponent() {
