@@ -22,7 +22,7 @@ display() {
     cardDiv.classList.add("card", "medium")
     const cardImageDiv = document.createElement('div')
     cardImageDiv.classList.add("card-image", "waves-effect", "waves-block", "waves-light")
-    cardImageDiv.innerHTML = `<img class="activator" src="images/components/basil.jpg">`
+    cardImageDiv.innerHTML = `<img class="activator" src="images/processes/${this.process}.jpg">`
     const cardContent = document.createElement('div')
     cardContent.classList.add("card-content")
     const cardNameSpan = document.createElement('span')
