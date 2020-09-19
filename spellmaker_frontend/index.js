@@ -20,6 +20,10 @@ const componentDeities = () => document.querySelector("select#component-deities"
 const componentUses = () => document.querySelector("select#component-uses")
 const submitComponent = () => document.getElementById("submit-component")
 
+const makerNav = () => document.getElementById("maker-nav")
+const spellsNav = () => document.getElementById("spells-nav")
+const componentsNav = () => document.getElementById("components-nav")
+
 const baseUrl = 'http://localhost:3000'
 let editingSpell = false
 let editingComponent = false
@@ -32,6 +36,9 @@ function callOnLoad() {
     loadSelectors();
     submitSpell().addEventListener('click', Spell.createFromForm);
     submitComponent().addEventListener('click', Reagent.createFromForm);
+    makerNav().addEventListener('click', makerJump);
+    spellsNav().addEventListener('click', spellsJump);
+    componentsNav().addEventListener('click', componentsJump);
 }
 
 function loadSpells() {
@@ -225,4 +232,19 @@ function resetInputs() {
 function removeHash () { 
     history.pushState("", document.title, window.location.pathname
                                                        + window.location.search);
+}
+
+function makerJump () {
+    window.scrollTo(0, 0);
+    removeHash();
+}
+
+function spellsJump () {
+    window.location.hash = "spell-nav-jump";
+    removeHash();
+}
+
+function componentsJump () {
+    window.location.hash = "component-nav-jump";
+    removeHash();
 }

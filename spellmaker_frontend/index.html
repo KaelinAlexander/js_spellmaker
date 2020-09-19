@@ -28,16 +28,24 @@
 
 <!-- Header Ends -->
 
+<div class="navbar-fixed">
+<nav class="purple darken-1">
+    <div class="container">
+        <a class="brand-logo">Spellmaker</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a id="maker-nav">Maker</a></li>
+          <li><a id="spells-nav">Spells</a></li>
+          <li><a id="components-nav">Components</a></li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
 <!-- Document Body Begins -->
 
     <body class="white">
-        <div class="container" style="margin-bottom: 50px">
-        <h4>Welcome to the Spellmaker!</h4>
 
-        
-        <!-- Spell Creation Form Begin -->
-        <br>
-        <hr>
+        <div class="container" style="margin-bottom: 50px">
         <br>
         <h5 id="spell-form-jump">Devise a Spell</h5>
         <form id="spell-form" class="row">
@@ -87,7 +95,7 @@
                 <label class="active" for="spell-description">Spell Description</label>
               </div>
                    
-            <input type="submit" value="Make Spell" class="btn" id="submit-spell">
+            <input type="submit" value="Make Spell" class="btn purple darken-1" id="submit-spell">
         </form>
 
         <!-- Spell Creation Form End -->
@@ -175,18 +183,20 @@
                 <label class="active" for="component-description">Component Description</label>
             </div>
 
-            <input type="submit" value="Make Component" class="btn" id="submit-component">
+            <input type="submit" value="Make Component" class="btn purple darken-1" id="submit-component">
 
         </form>
 
         <!-- Component Creation Form End -->
 
-        <hr>
-
+        <hr id="spell-nav-jump">
+        <br>
+        <br>
         <h4>Your Spells:</h4>
         <div id="spell-list" class="row"></div>
         <br>
-        <hr>
+        <hr id="component-nav-jump">
+        <br>
         <br>
         <h4>Your Components:</h4>
         <div id="component-list" class="row"></div>
