@@ -267,6 +267,7 @@ class Reagent {
         .then(data => {
             let createComponent = Reagent.create(data.id, data.name, data.latin, data.planet, data.element, data.description, data.toxic, data.synonyms, data.deities, data.uses);
             createComponent.display();
+            Spell.displaySpells();
         })
 
         resetInputs();
