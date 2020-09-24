@@ -450,6 +450,7 @@ static validateAdd (spell_id, component_id) {
     const componentToCheck = parseInt(component_id)
 
     spellToCheck.components.forEach(component => {
+        
         if (component.id == componentToCheck) {
             alert("That component is already part of this spell!");
             validationValue = false;

@@ -206,8 +206,6 @@ function removeComponentOptions(componentId) {
     const optionTags = document.getElementsByClassName("component-selector");
     const searchId = componentId
 
-    debugger
-
     for (var i = 0; i < optionTags.length; i++) {
     if (optionTags[i].id == searchId) {
        optionTags[i].remove();

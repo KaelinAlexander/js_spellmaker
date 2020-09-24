@@ -16,8 +16,10 @@ class ComponentsController < ApplicationController
     def update
         @component = Component.find(params[:id].to_i)
         @components_uses = ComponentsUse.where(component_id: @component.id)
-        @components_uses.destroy_all
+        @components_synonyms = Synonym.where(component_id: @component.id)
         @components_deities = ComponentsDeity.where(component_id: @component.id)
+        @components_uses.destroy_all
+        @components_synonyms.destroy_all
         @components_deities.destroy_all
         if @component.update(component_params)
             render json: @component, include: {synonyms: {only: [:id, :name]}, deities: {only: [:id, :name]}, uses: {only: [:id, :name]}}, status: :created
