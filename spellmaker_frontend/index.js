@@ -75,7 +75,6 @@ function loadSelectors() {
     loadComponentUseSelectors();
     loadComponentDeitySelectors();
     loadComponentSelectors();
-    loadComponentUseSelectors();
     $('select').formSelect();
 }
 
@@ -226,7 +225,6 @@ function resetInputs() {
 
     spellForm().reset();
     componentForm().reset();
-    loadSelectors();    
 }
 
 function removeHash () { 

@@ -62,7 +62,11 @@ class Reagent {
         const deitiesList = document.createElement('ul')
 
         cardNameSpan.innerText = this.name
+        if (this.latin != "" && this.latin != null ) {
         spanLatin.innerText = this.latin
+        } else {
+            spanLatin.innerText = this.name
+        }
 
         pPlanet.innerText = this.planet
         pElement.innerText = this.element
@@ -412,11 +416,10 @@ static deleteComponent() {
         
         this.parentNode.parentNode.parentNode.remove();
 
-        // Find a workaround for this; it's kind of a nuclear option.
+        // TO DO: Find a workaround for this; it's kind of a nuclear option.
 
         // spellList().innerHTML = ""
         Spell.displaySpells();
-        loadSelectors();
         removeComponentLis(data.id);
         resetInputs(); 
     })
@@ -438,7 +441,7 @@ static validateForm() {
     }
 
     if (componentElement().value == "") {
-        alert("Component needs and element!");
+        alert("Component needs an element!");
         validationValue = false;
     }
 

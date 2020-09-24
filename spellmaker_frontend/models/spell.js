@@ -447,9 +447,10 @@ static validateAdd (spell_id, component_id) {
     
     let validationValue = true
     const spellToCheck = Spell.all.find(spell => spell.id == spell_id)
+    const componentToCheck = parseInt(component_id)
 
     spellToCheck.components.forEach(component => {
-        if (component.id == component_id) {
+        if (component.id == componentToCheck) {
             alert("That component is already part of this spell!");
             validationValue = false;
         }
@@ -458,18 +459,6 @@ static validateAdd (spell_id, component_id) {
     return validationValue
 }
 
-// function reloadProcessSelectors() {
-//     spellProcess().innerHTML = 
-//     `
-//     <option value="" disabled>--Choose a Process--</option>
-//     <option value="Charm" ${ spellToEdit.process == "Charm" ? 'selected' : ''}>Charm</option>
-//     <option value="Infusion" ${ spellToEdit.process == "Infusion" ? 'selected' : ''}>Infusion</option>
-//     <option value="Bath" ${ spellToEdit.process == "Bath" ? 'selected' : ''}>Bath</option>
-//     <option value="Ointment" ${ spellToEdit.process == "Ointment" ? 'selected' : ''}>Ointment</option>
-//     <option value="Incense" ${ spellToEdit.process == "Incense" ? 'selected' : ''}>Incense</option>
-//     `
-//     $('select').formSelect();
-// }
 
 }
 
